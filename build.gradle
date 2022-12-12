@@ -281,6 +281,7 @@ minecraft {
 
     if (replaceGradleTokenInFile) {
         replaceIn replaceGradleTokenInFile
+        replaceIn "package-info.java"
         if (gradleTokenModId) {
             replace gradleTokenModId, modId
         }
