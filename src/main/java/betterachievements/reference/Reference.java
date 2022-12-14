@@ -1,7 +1,6 @@
 package betterachievements.reference;
 
-public class Reference
-{
+public class Reference {
     // User friendly version of our mods name.
     public static final String NAME = "Better Achievements";
 
@@ -10,10 +9,7 @@ public class Reference
     public static final String RESOURCE_ID = ID.toLowerCase();
 
     // Main version information that will be displayed in mod listing and for other purposes.
-    public static final String V_MAJOR = "@MAJOR@";
-    public static final String V_MINOR = "@MINOR@";
-    public static final String V_REVIS = "@REVIS@";
-    public static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + "." + V_REVIS;
+    public static final String VERSION_FULL = "GRADLETOKEN_VERSION";
 
     // proxy info
     public static final String SERVER_PROXY = "betterachievements.proxy.CommonProxy";

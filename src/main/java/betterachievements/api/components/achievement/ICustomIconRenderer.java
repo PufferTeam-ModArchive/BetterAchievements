@@ -1,7 +1,6 @@
 package betterachievements.api.components.achievement;
 
-public interface ICustomIconRenderer
-{
+public interface ICustomIconRenderer {
     /**
      * Custom icon rendering of the {@link net.minecraft.stats.Achievement} on the {@link betterachievements.gui.GuiBetterAchievements}
      *

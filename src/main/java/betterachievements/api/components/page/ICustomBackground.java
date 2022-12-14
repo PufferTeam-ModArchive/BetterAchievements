@@ -1,7 +1,6 @@
 package betterachievements.api.components.page;
 
-public interface ICustomBackground
-{
+public interface ICustomBackground {
     /**
      * Drawing the background of the achievement page
      * This is called after translating the origin to the top left corner of the background area

@@ -2,8 +2,7 @@ package betterachievements.api.components.achievement;
 
 import net.minecraft.stats.StatFileWriter;
 
-public interface ICustomTooltip
-{
+public interface ICustomTooltip {
     /**
      * Render your own tooltip
      *
