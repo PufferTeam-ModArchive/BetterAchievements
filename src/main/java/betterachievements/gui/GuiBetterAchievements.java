@@ -1,23 +1,10 @@
 package betterachievements.gui;
 
-import betterachievements.api.components.achievement.ICustomBackgroundColour;
-import betterachievements.api.components.achievement.ICustomIconRenderer;
-import betterachievements.api.components.achievement.ICustomTooltip;
-import betterachievements.api.components.page.ICustomArrows;
-import betterachievements.api.components.page.ICustomBackground;
-import betterachievements.api.components.page.ICustomPosition;
-import betterachievements.api.components.page.ICustomScale;
-import betterachievements.api.util.ColourHelper;
-import betterachievements.handler.MessageHandler;
-import betterachievements.handler.message.AchievementUnlockMessage;
-import betterachievements.reference.Resources;
-import betterachievements.registry.AchievementRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -34,50 +21,37 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.AchievementPage;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import betterachievements.api.components.achievement.ICustomBackgroundColour;
+import betterachievements.api.components.achievement.ICustomIconRenderer;
+import betterachievements.api.components.achievement.ICustomTooltip;
+import betterachievements.api.components.page.ICustomArrows;
+import betterachievements.api.components.page.ICustomBackground;
+import betterachievements.api.components.page.ICustomPosition;
+import betterachievements.api.components.page.ICustomScale;
+import betterachievements.api.util.ColourHelper;
+import betterachievements.handler.MessageHandler;
+import betterachievements.handler.message.AchievementUnlockMessage;
+import betterachievements.reference.Resources;
+import betterachievements.registry.AchievementRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class GuiBetterAchievements extends GuiScreen {
-    private static final int blockSize = 16,
-            maxTabs = 9,
-            lineSize = 12,
-            defaultTooltipWidth = 120,
-            arrowHeadWidth = 11,
-            arrowHeadHeight = 7,
-            arrowOffset = 5,
-            arrowRightX = 114,
-            arrowRightY = 234,
-            arrowLeftX = 107,
-            arrowLeftY = 234,
-            arrowDownX = 96,
-            arrowDownY = 234,
-            arrowUpX = 96,
-            arrowUpY = 241,
-            achievementX = 0,
-            achievementY = 202,
-            achievementTooltipOffset = 3,
-            achievementTextureSize = 26,
-            achievementOffset = 2,
-            achievementSize = 24,
-            achievementInnerSize = 22,
-            buttonDone = 1,
-            buttonOld = 2,
-            buttonPrev = 3,
-            buttonNext = 4,
-            buttonOffsetX = 24,
-            buttonOffsetY = 92,
-            guiWidth = 252,
-            guiHeight = 202,
-            tabWidth = 28,
-            tabHeight = 32,
-            borderWidthX = 8,
-            borderWidthY = 17,
-            tabOffsetX = 0,
-            tabOffsetY = -12,
-            innerWidth = 228,
+
+    private static final int blockSize = 16, maxTabs = 9, lineSize = 12, defaultTooltipWidth = 120, arrowHeadWidth = 11,
+            arrowHeadHeight = 7, arrowOffset = 5, arrowRightX = 114, arrowRightY = 234, arrowLeftX = 107,
+            arrowLeftY = 234, arrowDownX = 96, arrowDownY = 234, arrowUpX = 96, arrowUpY = 241, achievementX = 0,
+            achievementY = 202, achievementTooltipOffset = 3, achievementTextureSize = 26, achievementOffset = 2,
+            achievementSize = 24, achievementInnerSize = 22, buttonDone = 1, buttonOld = 2, buttonPrev = 3,
+            buttonNext = 4, buttonOffsetX = 24, buttonOffsetY = 92, guiWidth = 252, guiHeight = 202, tabWidth = 28,
+            tabHeight = 32, borderWidthX = 8, borderWidthY = 17, tabOffsetX = 0, tabOffsetY = -12, innerWidth = 228,
             innerHeight = 158,
             minDisplayColumn = AchievementList.minDisplayColumn * achievementSize - 10 * achievementSize,
             minDisplayRow = AchievementList.minDisplayRow * achievementSize - 10 * achievementSize,
@@ -86,14 +60,9 @@ public class GuiBetterAchievements extends GuiScreen {
     private static final float scaleJump = 0.25F, minZoom = 1.0F, maxZoom = 2.0F;
     private static final Random random = new Random();
     public static int colourUnlocked, colourCanUnlock, colourCantUnlock;
-    public static boolean scrollButtons,
-            iconReset,
-            userColourOverride,
-            colourUnlockedRainbow,
-            colourCanUnlockRainbow,
+    public static boolean scrollButtons, iconReset, userColourOverride, colourUnlockedRainbow, colourCanUnlockRainbow,
             colourCantUnlockRainbow;
-    public static float[] colourUnlockedRainbowSettings,
-            colourCanUnlockRainbowSettings,
+    public static float[] colourUnlockedRainbowSettings, colourCanUnlockRainbowSettings,
             colourCantUnlockRainbowSettings;
     private GuiScreen prevScreen;
     private StatFileWriter statFileWriter;
@@ -124,20 +93,22 @@ public class GuiBetterAchievements extends GuiScreen {
         this.yPos = achievementSize;
 
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(
-                buttonDone,
-                this.width / 2 + buttonOffsetX,
-                this.height / 2 + buttonOffsetY,
-                80,
-                20,
-                I18n.format("gui.done")));
-        this.buttonList.add(new GuiButton(
-                buttonOld,
-                this.left + buttonOffsetX,
-                this.height / 2 + buttonOffsetY,
-                125,
-                20,
-                I18n.format("betterachievements.gui.old")));
+        this.buttonList.add(
+                new GuiButton(
+                        buttonDone,
+                        this.width / 2 + buttonOffsetX,
+                        this.height / 2 + buttonOffsetY,
+                        80,
+                        20,
+                        I18n.format("gui.done")));
+        this.buttonList.add(
+                new GuiButton(
+                        buttonOld,
+                        this.left + buttonOffsetX,
+                        this.height / 2 + buttonOffsetY,
+                        125,
+                        20,
+                        I18n.format("betterachievements.gui.old")));
         if (scrollButtons) {
             this.buttonList.add(new GuiButton(buttonPrev, this.left - 24, this.top - 5, 20, 20, "<"));
             this.buttonList.add(new GuiButton(buttonNext, this.left + 256, this.top - 5, 20, 20, ">"));
@@ -291,7 +262,11 @@ public class GuiBetterAchievements extends GuiScreen {
             RenderHelper.enableGUIStandardItemLighting();
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             itemRender.renderItemAndEffectIntoGUI(
-                    this.fontRendererObj, this.mc.getTextureManager(), itemStack, tabLeft + 6, tabTop + 9);
+                    this.fontRendererObj,
+                    this.mc.getTextureManager(),
+                    itemStack,
+                    tabLeft + 6,
+                    tabTop + 9);
             itemRender.zLevel = 0.0F;
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -307,14 +282,13 @@ public class GuiBetterAchievements extends GuiScreen {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         if (page instanceof ICustomBackground) {
             GL11.glPushMatrix();
-            ((ICustomBackground) page)
-                    .drawBackground(
-                            this.left,
-                            this.top,
-                            innerWidth + borderWidthX,
-                            innerHeight + borderWidthY,
-                            this.zLevel,
-                            this.scale);
+            ((ICustomBackground) page).drawBackground(
+                    this.left,
+                    this.top,
+                    innerWidth + borderWidthX,
+                    innerHeight + borderWidthY,
+                    this.zLevel,
+                    this.scale);
             GL11.glPopMatrix();
         } else {
             GL11.glPushMatrix();
@@ -344,7 +318,11 @@ public class GuiBetterAchievements extends GuiScreen {
                     else if (r > 0) block = Blocks.dirt.getIcon(0, 0);
 
                     this.drawTexturedModelRectFromIcon(
-                            x * blockSize - antiJumpX, y * blockSize - antiJumpY, block, blockSize, blockSize);
+                            x * blockSize - antiJumpX,
+                            y * blockSize - antiJumpY,
+                            block,
+                            blockSize,
+                            blockSize);
                 }
             }
             GL11.glPopMatrix();
@@ -359,11 +337,10 @@ public class GuiBetterAchievements extends GuiScreen {
         if (depth < 5) {
             int achievementXPos = achievement.displayColumn * achievementSize - this.xPos + achievementInnerSize / 2;
             int achievementYPos = achievement.displayRow * achievementSize - this.yPos + achievementInnerSize / 2;
-            int parentXPos = achievement.parentAchievement.displayColumn * achievementSize
-                    - this.xPos
+            int parentXPos = achievement.parentAchievement.displayColumn * achievementSize - this.xPos
                     + achievementInnerSize / 2;
-            int parentYPos =
-                    achievement.parentAchievement.displayRow * achievementSize - this.yPos + achievementInnerSize / 2;
+            int parentYPos = achievement.parentAchievement.displayRow * achievementSize - this.yPos
+                    + achievementInnerSize / 2;
             boolean unlocked = this.statFileWriter.hasAchievementUnlocked(achievement);
             boolean canUnlock = this.statFileWriter.canUnlockAchievement(achievement);
             int colour = colourCantUnlock;
@@ -376,57 +353,51 @@ public class GuiBetterAchievements extends GuiScreen {
 
             this.mc.getTextureManager().bindTexture(Resources.GUI.SPRITES);
             GL11.glEnable(GL11.GL_BLEND);
-            if (achievementXPos > parentXPos)
-                this.drawTexturedModalRect(
-                        achievementXPos - achievementInnerSize / 2 - arrowHeadHeight,
-                        achievementYPos - arrowOffset,
-                        arrowRightX,
-                        arrowRightY,
-                        arrowHeadHeight,
-                        arrowHeadWidth);
-            else if (achievementXPos < parentXPos)
-                this.drawTexturedModalRect(
-                        achievementXPos + achievementInnerSize / 2,
-                        achievementYPos - arrowOffset,
-                        arrowLeftX,
-                        arrowLeftY,
-                        arrowHeadHeight,
-                        arrowHeadWidth);
-            else if (achievementYPos > parentYPos)
-                this.drawTexturedModalRect(
-                        achievementXPos - arrowOffset,
-                        achievementYPos - achievementInnerSize / 2 - arrowHeadHeight,
-                        arrowDownX,
-                        arrowDownY,
-                        arrowHeadWidth,
-                        arrowHeadHeight);
-            else if (achievementYPos < parentYPos)
-                this.drawTexturedModalRect(
-                        achievementXPos - arrowOffset,
-                        achievementYPos + achievementInnerSize / 2,
-                        arrowUpX,
-                        arrowUpY,
-                        arrowHeadWidth,
-                        arrowHeadHeight);
+            if (achievementXPos > parentXPos) this.drawTexturedModalRect(
+                    achievementXPos - achievementInnerSize / 2 - arrowHeadHeight,
+                    achievementYPos - arrowOffset,
+                    arrowRightX,
+                    arrowRightY,
+                    arrowHeadHeight,
+                    arrowHeadWidth);
+            else if (achievementXPos < parentXPos) this.drawTexturedModalRect(
+                    achievementXPos + achievementInnerSize / 2,
+                    achievementYPos - arrowOffset,
+                    arrowLeftX,
+                    arrowLeftY,
+                    arrowHeadHeight,
+                    arrowHeadWidth);
+            else if (achievementYPos > parentYPos) this.drawTexturedModalRect(
+                    achievementXPos - arrowOffset,
+                    achievementYPos - achievementInnerSize / 2 - arrowHeadHeight,
+                    arrowDownX,
+                    arrowDownY,
+                    arrowHeadWidth,
+                    arrowHeadHeight);
+            else if (achievementYPos < parentYPos) this.drawTexturedModalRect(
+                    achievementXPos - arrowOffset,
+                    achievementYPos + achievementInnerSize / 2,
+                    arrowUpX,
+                    arrowUpY,
+                    arrowHeadWidth,
+                    arrowHeadHeight);
         }
     }
 
     private void drawAchievements(AchievementPage page, int mouseX, int mouseY) {
-        List<Achievement> achievements =
-                new LinkedList<Achievement>(AchievementRegistry.instance().getAchievements(page));
+        List<Achievement> achievements = new LinkedList<Achievement>(
+                AchievementRegistry.instance().getAchievements(page));
         boolean customColours = page instanceof ICustomArrows;
         int colourCantUnlock = !userColourOverride && customColours
                 ? ((ICustomArrows) page).getColourForCantUnlockArrow()
                 : (GuiBetterAchievements.colourCantUnlockRainbow
                         ? ColourHelper.getRainbowColour(GuiBetterAchievements.colourCantUnlockRainbowSettings)
                         : GuiBetterAchievements.colourCantUnlock);
-        int colourCanUnlock = !userColourOverride && customColours
-                ? ((ICustomArrows) page).getColourForCanUnlockArrow()
+        int colourCanUnlock = !userColourOverride && customColours ? ((ICustomArrows) page).getColourForCanUnlockArrow()
                 : (GuiBetterAchievements.colourCanUnlockRainbow
                         ? ColourHelper.getRainbowColour(GuiBetterAchievements.colourCanUnlockRainbowSettings)
                         : GuiBetterAchievements.colourCanUnlock);
-        int colourUnlocked = !userColourOverride && customColours
-                ? ((ICustomArrows) page).getColourForUnlockedArrow()
+        int colourUnlocked = !userColourOverride && customColours ? ((ICustomArrows) page).getColourForUnlockedArrow()
                 : (GuiBetterAchievements.colourUnlockedRainbow
                         ? ColourHelper.getRainbowColour(GuiBetterAchievements.colourUnlockedRainbowSettings)
                         : GuiBetterAchievements.colourUnlocked);
@@ -469,22 +440,20 @@ public class GuiBetterAchievements extends GuiScreen {
         } else GL11.glColor4f(brightness, brightness, brightness, 1.0F);
         this.mc.getTextureManager().bindTexture(Resources.GUI.SPRITES);
         GL11.glEnable(GL11.GL_BLEND);
-        if (special)
-            this.drawTexturedModalRect(
-                    achievementXPos - achievementOffset,
-                    achievementYPos - achievementOffset,
-                    achievementX + achievementTextureSize,
-                    achievementY,
-                    achievementTextureSize,
-                    achievementTextureSize);
-        else
-            this.drawTexturedModalRect(
-                    achievementXPos - achievementOffset,
-                    achievementYPos - achievementOffset,
-                    achievementX,
-                    achievementY,
-                    achievementTextureSize,
-                    achievementTextureSize);
+        if (special) this.drawTexturedModalRect(
+                achievementXPos - achievementOffset,
+                achievementYPos - achievementOffset,
+                achievementX + achievementTextureSize,
+                achievementY,
+                achievementTextureSize,
+                achievementTextureSize);
+        else this.drawTexturedModalRect(
+                achievementXPos - achievementOffset,
+                achievementYPos - achievementOffset,
+                achievementX,
+                achievementY,
+                achievementTextureSize,
+                achievementTextureSize);
 
         if (achievement instanceof ICustomIconRenderer) {
             GL11.glPushMatrix();
@@ -521,9 +490,10 @@ public class GuiBetterAchievements extends GuiScreen {
         }
 
         if (iconReset && Mouse.isButtonDown(2)) {
-            AchievementRegistry.instance()
-                    .registerIcon(
-                            this.pages.get(this.currentPage).getName(), this.hoveredAchievement.theItemStack, true);
+            AchievementRegistry.instance().registerIcon(
+                    this.pages.get(this.currentPage).getName(),
+                    this.hoveredAchievement.theItemStack,
+                    true);
         }
 
         int tooltipX = mouseX + 12;
@@ -543,9 +513,9 @@ public class GuiBetterAchievements extends GuiScreen {
 
             if (!canUnlock) {
                 if (depth > 3) return;
-                else
-                    desc = this.getChatComponentTranslation(
-                            "achievement.requires", this.hoveredAchievement.parentAchievement.func_150951_e());
+                else desc = this.getChatComponentTranslation(
+                        "achievement.requires",
+                        this.hoveredAchievement.parentAchievement.func_150951_e());
 
                 if (depth == 3) title = I18n.format("achievement.unknown");
             }
@@ -563,11 +533,16 @@ public class GuiBetterAchievements extends GuiScreen {
                     -1073741824,
                     -1073741824);
             this.fontRendererObj.drawStringWithShadow(
-                    title, tooltipX, tooltipY, canUnlock ? (special ? -128 : -1) : (special ? -8355776 : -8355712));
+                    title,
+                    tooltipX,
+                    tooltipY,
+                    canUnlock ? (special ? -128 : -1) : (special ? -8355776 : -8355712));
             this.fontRendererObj.drawSplitString(desc, tooltipX, tooltipY + lineSize, tooltipWidth, -6250336);
-            if (unlocked)
-                this.fontRendererObj.drawStringWithShadow(
-                        I18n.format("achievement.taken"), tooltipX, tooltipY + tooltipHeight + 4, -7302913);
+            if (unlocked) this.fontRendererObj.drawStringWithShadow(
+                    I18n.format("achievement.taken"),
+                    tooltipX,
+                    tooltipY + tooltipHeight + 4,
+                    -7302913);
         }
 
         this.hoveredAchievement = null;
@@ -648,8 +623,7 @@ public class GuiBetterAchievements extends GuiScreen {
     }
 
     private boolean inInnerScreen(int mouseX, int mouseY) {
-        return mouseX > this.left + borderWidthX
-                && mouseX < this.left + guiWidth - borderWidthX
+        return mouseX > this.left + borderWidthX && mouseX < this.left + guiWidth - borderWidthX
                 && mouseY > this.top + borderWidthY
                 && mouseY < this.top + guiHeight - borderWidthY;
     }
@@ -671,8 +645,7 @@ public class GuiBetterAchievements extends GuiScreen {
      * @return -1 if not on a tab otherwise the index
      */
     private int onTab(int mouseX, int mouseY) {
-        if (mouseX > this.left + tabOffsetX
-                && mouseX < this.left + guiWidth
+        if (mouseX > this.left + tabOffsetX && mouseX < this.left + guiWidth
                 && mouseY > this.top + tabOffsetY
                 && mouseY < this.top + tabOffsetY + tabHeight) {
             return ((mouseX - (this.left + tabOffsetX)) / tabWidth) + tabsOffset;

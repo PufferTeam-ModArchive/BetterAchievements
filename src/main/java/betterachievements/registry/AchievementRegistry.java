@@ -1,12 +1,10 @@
 package betterachievements.registry;
 
-import betterachievements.api.components.page.ICustomIcon;
-import betterachievements.util.LogHelper;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +16,12 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraftforge.common.AchievementPage;
 
+import betterachievements.api.components.page.ICustomIcon;
+import betterachievements.util.LogHelper;
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public final class AchievementRegistry {
+
     private static AchievementRegistry instance;
     public static final AchievementPage mcPage = new AchievementPage("Minecraft");
     private List<Achievement> mcAchievements;
@@ -62,7 +65,7 @@ public final class AchievementRegistry {
         pages.add(mcPage);
         int size = AchievementPage.getAchievementPages().size();
         for (int i = 0; i < size; i++) // Make sure to get pages in same order
-        pages.add(AchievementPage.getAchievementPage(i));
+            pages.add(AchievementPage.getAchievementPage(i));
         return pages;
     }
 
@@ -98,10 +101,8 @@ public final class AchievementRegistry {
         for (Map.Entry<String, ItemStack> entry : this.userSetIcons.entrySet()) {
             String pageName = entry.getKey();
             ItemStack itemStack = entry.getValue();
-            String itemName =
-                    GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString();
-            String nbtCompoundTag =
-                    itemStack.hasTagCompound() ? itemStack.getTagCompound().toString() : "";
+            String itemName = GameRegistry.findUniqueIdentifierFor(itemStack.getItem()).toString();
+            String nbtCompoundTag = itemStack.hasTagCompound() ? itemStack.getTagCompound().toString() : "";
             list.add(pageName + "->" + itemName + ":" + entry.getValue().getItemDamage() + ":" + nbtCompoundTag);
         }
         return list.toArray(new String[list.size()]);
@@ -123,8 +124,8 @@ public final class AchievementRegistry {
             }
             NBTBase nbtTag = null;
             try {
-                nbtTag =
-                        itemSplit.length > 3 && !itemSplit[3].equals("") ? JsonToNBT.func_150315_a(itemSplit[3]) : null;
+                nbtTag = itemSplit.length > 3 && !itemSplit[3].equals("") ? JsonToNBT.func_150315_a(itemSplit[3])
+                        : null;
             } catch (NBTException e) {
                 LogHelper.instance().error(e, "Invalid input for nbt data on entry " + i);
             }

@@ -1,10 +1,12 @@
 package betterachievements.handler;
 
-import betterachievements.registry.AchievementRegistry;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import betterachievements.registry.AchievementRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class SaveHandler {
+
     public static String[] userSetIcons = new String[0];
 
     @SubscribeEvent

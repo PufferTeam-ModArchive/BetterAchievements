@@ -1,9 +1,11 @@
 package betterachievements.reference;
 
-import cpw.mods.fml.common.ModMetadata;
 import java.util.Arrays;
 
+import cpw.mods.fml.common.ModMetadata;
+
 public class MetaData {
+
     public static ModMetadata init(ModMetadata metadata) {
         metadata.modId = Reference.ID;
         metadata.name = Reference.NAME;

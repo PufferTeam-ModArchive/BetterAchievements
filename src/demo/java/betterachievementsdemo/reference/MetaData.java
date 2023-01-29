@@ -1,13 +1,12 @@
 package betterachievementsdemo.reference;
 
-import cpw.mods.fml.common.ModMetadata;
-
 import java.util.Arrays;
 
-public class MetaData
-{
-    public static ModMetadata init(ModMetadata metadata)
-    {
+import cpw.mods.fml.common.ModMetadata;
+
+public class MetaData {
+
+    public static ModMetadata init(ModMetadata metadata) {
         metadata.modId = Reference.ID;
         metadata.name = Reference.NAME;
         metadata.description = "A demo of the features in BetterAchievements";

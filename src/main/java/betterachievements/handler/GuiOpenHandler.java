@@ -1,15 +1,18 @@
 package betterachievements.handler;
 
-import betterachievements.gui.GuiAchievementsOld;
-import betterachievements.gui.GuiBetterAchievements;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.lang.reflect.Field;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraftforge.client.event.GuiOpenEvent;
 
+import betterachievements.gui.GuiAchievementsOld;
+import betterachievements.gui.GuiBetterAchievements;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class GuiOpenHandler {
+
     private static Field prevScreen, currentPage;
 
     static {
@@ -31,9 +34,10 @@ public class GuiOpenHandler {
         if (event.gui instanceof GuiAchievements) {
             event.setCanceled(true);
             try {
-                Minecraft.getMinecraft()
-                        .displayGuiScreen(new GuiBetterAchievements(
-                                (GuiScreen) prevScreen.get(event.gui), (Integer) currentPage.get(event.gui) + 1));
+                Minecraft.getMinecraft().displayGuiScreen(
+                        new GuiBetterAchievements(
+                                (GuiScreen) prevScreen.get(event.gui),
+                                (Integer) currentPage.get(event.gui) + 1));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

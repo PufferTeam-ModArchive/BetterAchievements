@@ -1,14 +1,16 @@
 package betterachievements.handler.message;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.Achievement;
+
 import betterachievements.registry.AchievementRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.stats.Achievement;
 
 public class AchievementUnlockMessage implements IMessage, IMessageHandler<AchievementUnlockMessage, IMessage> {
+
     private String achievementId;
 
     public AchievementUnlockMessage() {}

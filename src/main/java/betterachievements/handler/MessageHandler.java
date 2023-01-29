@@ -6,6 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
 public class MessageHandler {
+
     public static SimpleNetworkWrapper INSTANCE = new SimpleNetworkWrapper(Reference.ID);
     private static int id = 0;
 

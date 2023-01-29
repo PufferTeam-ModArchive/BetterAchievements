@@ -1,13 +1,16 @@
 package betterachievements.proxy;
 
+import java.io.File;
+
+import net.minecraftforge.common.MinecraftForge;
+
 import betterachievements.handler.ConfigHandler;
 import betterachievements.handler.GuiOpenHandler;
 import betterachievements.handler.SaveHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
-import java.io.File;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
+
     @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new GuiOpenHandler());

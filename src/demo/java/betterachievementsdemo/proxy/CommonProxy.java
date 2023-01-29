@@ -1,5 +1,4 @@
 package betterachievementsdemo.proxy;
 
-public class CommonProxy
-{
+public class CommonProxy {
 }

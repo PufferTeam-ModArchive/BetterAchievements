@@ -3,6 +3,7 @@ package betterachievements.api.components.page;
 import net.minecraft.stats.Achievement;
 
 public interface ICustomPosition {
+
     /**
      * Set position on load located at given {@link Achievement}
      *

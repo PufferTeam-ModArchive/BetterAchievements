@@ -3,9 +3,9 @@ package betterachievements.api.util;
 import betterachievements.util.LogHelper;
 
 public class ColourHelper {
+
     /**
-     * Convert to integer RGBA value
-     * Uses 255 as A value
+     * Convert to integer RGBA value Uses 255 as A value
      *
      * @param r integer red
      * @param g integer green
@@ -32,12 +32,11 @@ public class ColourHelper {
     }
 
     /**
-     * Convert to integer RGBA value
-     * Uses 1.0F as A value
+     * Convert to integer RGBA value Uses 1.0F as A value
      *
-     * @param red float red
+     * @param red   float red
      * @param green float green
-     * @param blue float blue
+     * @param blue  float blue
      *
      * @return single integer representation of the given floats
      */
@@ -48,9 +47,9 @@ public class ColourHelper {
     /**
      * Convert to integer RGBA value
      *
-     * @param red float red
+     * @param red   float red
      * @param green float green
-     * @param blue float blue
+     * @param blue  float blue
      * @param alpha float alpha
      *
      * @return single integer representation of the given floats
@@ -111,10 +110,10 @@ public class ColourHelper {
     }
 
     /**
-     * Tone a int colour
-     * bigger then 1 will tone up, less then 1 will tone down
+     * Tone a int colour bigger then 1 will tone up, less then 1 will tone down
+     * 
      * @param colour colour in int form
-     * @param scale scale as float
+     * @param scale  scale as float
      * @return the toned colour
      */
     public static int tone(int colour, float scale) {
@@ -127,7 +126,7 @@ public class ColourHelper {
     /**
      * Blend colour with given grey scale
      *
-     * @param colour colour in int form
+     * @param colour    colour in int form
      * @param greyScale grayScale as float
      * @return the toned colour
      */
@@ -138,27 +137,19 @@ public class ColourHelper {
     /**
      * Gives a colour based of {@link System#currentTimeMillis()} and given params
      *
-     * @param freqR strength of the reds
-     * @param freqG strength of the greens
-     * @param freqB strength of the blues
+     * @param freqR  strength of the reds
+     * @param freqG  strength of the greens
+     * @param freqB  strength of the blues
      * @param phaseR phase shift red
      * @param phaseG phase shift green
      * @param phaseB phase shift blue
      * @param center center value
-     * @param width width of colour range
+     * @param width  width of colour range
      * @param length change rate
      * @return an int colour
      */
-    public static int getRainbowColour(
-            float freqR,
-            float freqG,
-            float freqB,
-            float phaseR,
-            float phaseG,
-            float phaseB,
-            float center,
-            float width,
-            float length) {
+    public static int getRainbowColour(float freqR, float freqG, float freqB, float phaseR, float phaseG, float phaseB,
+            float center, float width, float length) {
         long i = Math.abs((int) System.currentTimeMillis()) / (int) length;
         double r = Math.sin(freqR * i + phaseR) * width + center;
         double g = Math.sin(freqG * i + phaseG) * width + center;
@@ -169,23 +160,33 @@ public class ColourHelper {
     /**
      * Short had for parsing array of params
      *
-     * @param params all parameters for {@link #getRainbowColour(float, float, float, float, float, float, float, float, float)}
+     * @param params all parameters for
+     *               {@link #getRainbowColour(float, float, float, float, float, float, float, float, float)}
      * @return an int rainbow colour
      */
     public static int getRainbowColour(float[] params) {
         return getRainbowColour(
-                params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8]);
+                params[0],
+                params[1],
+                params[2],
+                params[3],
+                params[4],
+                params[5],
+                params[6],
+                params[7],
+                params[8]);
     }
 
     /**
      * Create settings for rainbow colour
      *
      * @param colourCode a string representation of the rainbow settings
-     * @return an array containing parameters for {@link #getRainbowColour(float, float, float, float, float, float, float, float, float)}
+     * @return an array containing parameters for
+     *         {@link #getRainbowColour(float, float, float, float, float, float, float, float, float)}
      */
     public static float[] getRainbowSettings(String colourCode) {
         String[] splitted = colourCode.split(";");
-        float[] result = {0.3F, 0.3F, 0.3F, 0, 2, 4, 128, 127, 50};
+        float[] result = { 0.3F, 0.3F, 0.3F, 0, 2, 4, 128, 127, 50 };
         for (int i = 1; i < splitted.length; i++) {
             try {
                 result[i - 1] = Float.parseFloat(splitted[i]);

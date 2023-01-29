@@ -1,5 +1,14 @@
 package betterachievements.handler;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.config.ConfigElement;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+
 import betterachievements.api.util.ColourHelper;
 import betterachievements.gui.GuiBetterAchievements;
 import betterachievements.reference.Reference;
@@ -7,15 +16,9 @@ import betterachievements.registry.AchievementRegistry;
 import cpw.mods.fml.client.config.IConfigElement;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 public class ConfigHandler {
+
     public static Configuration config;
 
     public static void init(File file) {

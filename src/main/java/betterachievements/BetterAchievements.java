@@ -1,5 +1,7 @@
 package betterachievements;
 
+import java.util.Map;
+
 import betterachievements.handler.MessageHandler;
 import betterachievements.proxy.CommonProxy;
 import betterachievements.reference.MetaData;
@@ -13,7 +15,6 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.relauncher.Side;
-import java.util.Map;
 
 @Mod(
         modid = Reference.ID,
@@ -21,6 +22,7 @@ import java.util.Map;
         version = Reference.VERSION_FULL,
         guiFactory = Reference.MOD_GUI_FACTORY)
 public class BetterAchievements {
+
     @Mod.Instance
     public BetterAchievements instance;
 
@@ -49,8 +51,7 @@ public class BetterAchievements {
 
     @Mod.EventHandler
     public void imcCallback(FMLInterModComms.IMCEvent event) {
-        for (FMLInterModComms.IMCMessage message : event.getMessages())
-            if (message.isItemStackMessage())
-                AchievementRegistry.instance().registerIcon(message.key, message.getItemStackValue(), false);
+        for (FMLInterModComms.IMCMessage message : event.getMessages()) if (message.isItemStackMessage())
+            AchievementRegistry.instance().registerIcon(message.key, message.getItemStackValue(), false);
     }
 }

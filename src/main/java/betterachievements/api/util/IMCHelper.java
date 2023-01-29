@@ -1,20 +1,22 @@
 package betterachievements.api.util;
 
-import betterachievements.api.components.page.ICustomIcon;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.AchievementPage;
 
+import betterachievements.api.components.page.ICustomIcon;
+import cpw.mods.fml.common.event.FMLInterModComms;
+
 /**
- * Used to send an IMC message containing the {@link ItemStack} to render on the tab
- * in {@link betterachievements.gui.GuiBetterAchievements} of the given {@link AchievementPage}
- * Can be used as replacement for {@link betterachievements.api.components.page.ICustomIcon}
- * NOTE: IMC will most likely register before the {@link ICustomIcon#getPageIcon()} will ever be called
- * In short this will override what ever is set there, so use only one of both
+ * Used to send an IMC message containing the {@link ItemStack} to render on the tab in
+ * {@link betterachievements.gui.GuiBetterAchievements} of the given {@link AchievementPage} Can be used as replacement
+ * for {@link betterachievements.api.components.page.ICustomIcon} NOTE: IMC will most likely register before the
+ * {@link ICustomIcon#getPageIcon()} will ever be called In short this will override what ever is set there, so use only
+ * one of both
  */
 public class IMCHelper {
+
     private static final String MOD_ID = "BetterAchievements";
 
     public static void sendIconForPage(String pageName, ItemStack itemStack) {

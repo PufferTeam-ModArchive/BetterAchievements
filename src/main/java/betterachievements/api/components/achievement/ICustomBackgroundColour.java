@@ -1,8 +1,10 @@
 package betterachievements.api.components.achievement;
 
 public interface ICustomBackgroundColour {
+
     /**
-     * Recolour the background of the {@link net.minecraft.stats.Achievement} icon in the {@link betterachievements.gui.GuiBetterAchievements}
+     * Recolour the background of the {@link net.minecraft.stats.Achievement} icon in the
+     * {@link betterachievements.gui.GuiBetterAchievements}
      *
      * @param greyScale the current gray scale
      *
