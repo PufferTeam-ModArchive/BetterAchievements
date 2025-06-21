@@ -49,10 +49,9 @@ public class GuiBetterAchievements extends GuiScreen {
             arrowHeadHeight = 7, arrowOffset = 5, arrowRightX = 114, arrowRightY = 234, arrowLeftX = 107,
             arrowLeftY = 234, arrowDownX = 96, arrowDownY = 234, arrowUpX = 96, arrowUpY = 241, achievementX = 0,
             achievementY = 202, achievementTooltipOffset = 3, achievementTextureSize = 26, achievementOffset = 2,
-            achievementSize = 24, achievementInnerSize = 22, buttonDone = 1, buttonOld = 2, buttonPrev = 3,
-            buttonNext = 4, buttonOffsetX = 24, buttonOffsetY = 92, guiWidth = 252, guiHeight = 202, tabWidth = 28,
-            tabHeight = 32, borderWidthX = 8, borderWidthY = 17, tabOffsetX = 0, tabOffsetY = -12, innerWidth = 228,
-            innerHeight = 158,
+            achievementSize = 24, achievementInnerSize = 22, buttonDone = 1, buttonPrev = 3, buttonNext = 4,
+            buttonOffsetX = 24, buttonOffsetY = 92, guiWidth = 252, guiHeight = 202, tabWidth = 28, tabHeight = 32,
+            borderWidthX = 8, borderWidthY = 17, tabOffsetX = 0, tabOffsetY = -12, innerWidth = 228, innerHeight = 158,
             minDisplayColumn = AchievementList.minDisplayColumn * achievementSize - 10 * achievementSize,
             minDisplayRow = AchievementList.minDisplayRow * achievementSize - 10 * achievementSize,
             maxDisplayColumn = AchievementList.maxDisplayColumn * achievementSize,
@@ -101,14 +100,6 @@ public class GuiBetterAchievements extends GuiScreen {
                         80,
                         20,
                         I18n.format("gui.done")));
-        this.buttonList.add(
-                new GuiButton(
-                        buttonOld,
-                        this.left + buttonOffsetX,
-                        this.height / 2 + buttonOffsetY,
-                        125,
-                        20,
-                        I18n.format("betterachievements.gui.old")));
         if (scrollButtons) {
             this.buttonList.add(new GuiButton(buttonPrev, this.left - 24, this.top - 5, 20, 20, "<"));
             this.buttonList.add(new GuiButton(buttonNext, this.left + 256, this.top - 5, 20, 20, ">"));
@@ -162,9 +153,6 @@ public class GuiBetterAchievements extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         switch (button.id) {
-            case buttonOld:
-                this.mc.displayGuiScreen(new GuiAchievementsOld(this.prevScreen, this.statFileWriter));
-                break;
             case buttonDone:
                 this.mc.displayGuiScreen(this.prevScreen);
                 break;
